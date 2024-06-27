@@ -47,8 +47,8 @@ async function loginUser(req,res){
 
 }
 
-export const logout = (req, res) => {
+ const logout = (req, res) => {
     res.clearCookie("token").status(200).json({message: "Logout successfull"})
   };
 
-module.exports ={createUser, loginUser}
+module.exports ={createUser, loginUser, logout}

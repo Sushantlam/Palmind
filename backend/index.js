@@ -4,6 +4,7 @@ const app = express()
 // const PORT = 8000
 
 const {connectMongo}= require("./connect.js")
+const user= require("./routes/user.js")
 const dotenv = require("dotenv")
 const cors= require("cors")
 dotenv.config()
@@ -23,6 +24,8 @@ connectMongo(process.env.URL).then(()=>{
         console.log(error);
 
 })
+
+app.use("/auth", user)
 
 app.get("/",(req,res)=>{
         res.send("Hello from server")
