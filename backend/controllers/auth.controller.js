@@ -6,9 +6,13 @@ const jwt = require("jsonwebtoken")
 
  async function createUser(req,res){
     const {email, password, userName}= req.body
+    const findEmail = await userSchema.findOne({email: req.body.email})
+    if(findEmail) return res.status(500).send("Email is already registered")
 
     var salt = bcrypt.genSaltSync(10)
     var hash = bcrypt.hashSync(password,salt)
+
+
   try {
         const newUser = new userSchema({
             email: email,
@@ -38,7 +42,7 @@ async function loginUser(req,res){
         res.cookie("access_token", token,{
             httpOnly: true,
             maxAge: age
-        }).status(200).json({message:"Login successfull"})
+        }).status(200).json({message:"Login successfull",  token})
         
     } catch (error) {
         res.status(400).json(error)

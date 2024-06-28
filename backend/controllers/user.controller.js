@@ -11,12 +11,13 @@ async function updateUserById(req, res, next) {
 }
 
 async function getUserById(req, res, next) {
-
+console.log("req", req.params.id);
     try {
         const getById = await user.findById(req.params.id)
+        
         res.status(201).json(getById)
     } catch (error) {
-        res.status(401).json(error)
+        res.status(401).json("error")
     }
 }
 
