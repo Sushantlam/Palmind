@@ -125,6 +125,8 @@ $(document).ready(function() {
       }
     });
 
+
+    //Create New User Modal
     $('#addUserBtn').click(function() {
       $('#addUserModal').modal('show');
     });
@@ -143,6 +145,45 @@ $(document).ready(function() {
           $('#addUserModal').modal('hide');
           Toastify({
             text: "User added successfully",
+            duration: 2000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)"
+          }).showToast();
+          fetchUsers();
+        })
+        .catch(error => {
+          Toastify({
+            text: "Something went wrong",
+            duration: 2000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
+          }).showToast();
+          console.error('There was an error adding the user!', error);
+        });
+    });
+
+    //changePassword
+    $('#changepassword').click(function() {
+      $('#changePasswordModal').modal('show');
+    });
+
+    $('#changepasswordForm').submit(function(event) {
+      event.preventDefault();
+      const changePassword = {
+        email: $('#oldEmail').val(),
+        oldPassword: $('#oldPassword').val(),
+        newPassword: $('#newPassword').val()
+      };
+
+      axios.patch('http://localhost:8800/auth/reset-password', changePassword)
+        .then(response => {
+          $('#changePasswordModal').modal('hide');
+          Toastify({
+            text: "Password Changed successfully",
             duration: 2000,
             close: true,
             gravity: "top",

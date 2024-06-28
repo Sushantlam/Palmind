@@ -51,8 +51,26 @@ async function loginUser(req,res){
 
 }
 
+async function resetPassword(req,res){
+    const { email, newPassword, oldPassword } = req.body;
+    try {
+      const user = await userSchema.findOne({ email });
+      if (!user) return res.status(404).json({ message: 'User not found' });
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Old password is incorrect' });
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedPassword;
+      await user.save();
+      res.json({ message: 'Password reset successfully' });
+    } catch (error) {
+      res.status(400).json({ message: 'Error resetting password', error });
+    }
+  };
+
  const logout = (req, res) => {
     res.clearCookie("token").status(200).json({message: "Logout successfull"})
   };
 
-module.exports ={createUser, loginUser, logout}
+module.exports ={createUser, loginUser, logout, resetPassword}

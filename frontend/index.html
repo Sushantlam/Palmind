@@ -16,7 +16,7 @@
         <div class="container-fluid">
           <div class="d-flex justify-content-between align-items-center w-100">
             <div>
-              <a class="navbar-brand" href="#">Navbar</a>
+              <a class="navbar-brand" href="#">Palm-mind</a>
             </div>
             <button class="btn btn-outline-success"  onclick="logout()">Logout</button>
           </div>
@@ -25,15 +25,19 @@
       <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center">
           <h2>Registered Users</h2>
-          <button class="btn btn-warning mb-3" id="addUserBtn">Add new user</button>
+          <div class="d-flex justify-content-between align-items-center gap-2">
+            <button class="btn btn-warning mb-3" id="addUserBtn">Add new user</button>
+            <button class="btn bg-danger-subtle mb-3" id="changepassword">Change password</button>
+          </div>
+         
         </div>
         
         <table class="table table-striped" id="userTable">
           <thead>
             <tr>
-              <th>Username</th>
               <th>Email</th>
-              <th>Actions</th>
+              <th>Old Password</th>
+              <th>NewPassword</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -42,6 +46,39 @@
 
       <!-- Modal -->
        <!-- Add User Modal -->
+       <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form id="changepasswordForm">
+              <div class="modal-body">
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="addEmail">Email</label>
+                    <input type="email" class="form-control" id="oldEmail" required>
+                  </div>
+                  <label for="addUsername">Old Password</label>
+                  <input type="password" class="form-control" id="oldPassword" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="addPassword">Password</label>
+                  <input type="password" class="form-control" id="newPassword" required>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -111,7 +148,7 @@
                 data-dismiss="modal"
                 aria-label="Close"
               >
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">X</span>
               </button>
             </div>
             <div class="modal-body">
@@ -125,7 +162,7 @@
                     
                   />
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                   <label for="editEmail">Email</label>
                   <input
                     type="email"
@@ -134,14 +171,7 @@
                     readonly
                   />
                 </div>
-                <div class="form-group">
-                  <label for="editPassword">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="editPassword"
-                  />
-                </div>
+               
                 <button type="submit" class="btn btn-primary">
                   Save changes
                 </button>

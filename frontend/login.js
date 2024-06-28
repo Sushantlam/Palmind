@@ -73,7 +73,7 @@ function logout(){
      
       setTimeout(() => {
         window.location.href = './login.html';
-      }, 2000);
+      }, 500);
     })
     .catch(error => {
       Toastify({
